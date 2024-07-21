@@ -9,6 +9,9 @@ const debounce = (func, delay) => {
 };
 
 const resizeImage = (image, width, height) => {
+  if (!image) {
+    return image;
+  }
   const params = [];
 
   if (width) {
