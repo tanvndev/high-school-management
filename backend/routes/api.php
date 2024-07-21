@@ -1,12 +1,16 @@
 <?php
 
 use App\Http\Controllers\Api\V1\{
-    AuthController,
     DashboardController,
-    LocationController,
-    UploadController,
 };
-use App\Http\Controllers\Api\V1\User\{UserCatalogueController, UserController, PermissionController};
+use App\Http\Controllers\Api\V1\Auth\{
+    AuthController,
+    VerificationController
+};
+use App\Http\Controllers\Api\V1\Upload\{UploadController};
+use App\Http\Controllers\Api\V1\Location\{LocationController};
+use App\Http\Controllers\Api\V1\Permission\PermissionController;
+use App\Http\Controllers\Api\V1\User\{UserCatalogueController, UserController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,11 +28,14 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     // AUTH ROUTE
     Route::prefix('auth')->group(function () {
+        Route::post('register', [AuthController::class, 'register']);
         Route::post('login', [AuthController::class, 'login']);
+        Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
         Route::post('refreshToken', [AuthController::class, 'refreshToken']);
         Route::post('logout', [AuthController::class, 'logout']);
         Route::get('me', [AuthController::class, 'me']);
     });
+    Route::get('/email-register-verify/{id}', [VerificationController::class, 'emailRegisterVerify'])->name('email.register.verify');
 
     // LOCATION ROUTE
     Route::prefix('location')->group(function () {
@@ -52,10 +59,8 @@ Route::prefix('v1')->group(function () {
         // * Neu dung resource de tao .../catalogues thi phai gan them name neu khong se bi loi
         Route::resource('users/catalogues', UserCatalogueController::class)->names([
             'index' => 'users.catalogues.index',
-            'create' => 'users.catalogues.create',
             'store' => 'users.catalogues.store',
             'show' => 'users.catalogues.show',
-            'edit' => 'users.catalogues.edit',
             'update' => 'users.catalogues.update',
             'destroy' => 'users.catalogues.destroy',
         ]);

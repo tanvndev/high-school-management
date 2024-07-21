@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\URL;
 
-class VerifyEmailNotification extends Notification
+class EmailRegisterVerifyNotification extends Notification
 {
     use Queueable;
 
@@ -36,21 +36,20 @@ class VerifyEmailNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         $verificationUrl = URL::temporarySignedRoute(
-            'verification.verify',
+            'email.register.verify',
             now()->addMinutes(15),
-            ['id' => $notifiable->getKey()]
+            [
+                'id' => $notifiable->getKey(),
+                'hash' => sha1($notifiable->getEmailForVerification()),
+            ]
         );
 
         return (new MailMessage)
-            ->subject('Verify Your Email Address')
-            ->view('emails.verify', [
+            ->subject('Xác nhận đăng ký tài khoản')
+            ->view('emails.register-email', [
                 'user' => $notifiable,
                 'verificationUrl' => $verificationUrl,
             ]);
-        return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
     }
 
     /**

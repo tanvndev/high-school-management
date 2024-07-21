@@ -12,8 +12,6 @@ use Illuminate\Support\Str;
  */
 class BaseService implements BaseServiceInterface
 {
-    protected $nestedset;
-
     public function __construct()
     {
     }
@@ -25,13 +23,6 @@ class BaseService implements BaseServiceInterface
         $newStr = strtoupper(str_replace('-', '', $newStr));
         $newStr .= rand(0, 1000);
         return $newStr;
-    }
-
-    protected function calculateNestedSet()
-    {
-        $this->nestedset->Get('level ASC, order ASC');
-        $this->nestedset->Recursive(0, $this->nestedset->Set());
-        $this->nestedset->Action();
     }
 
 
@@ -94,6 +85,7 @@ class BaseService implements BaseServiceInterface
 
     public function deleteMultiple()
     {
+
         DB::beginTransaction();
         try {
             $repositoryName = lcfirst(request('modelName')) . 'Repository';

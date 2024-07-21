@@ -130,9 +130,10 @@
                     <tr>
                         <td bgcolor="#ffffff" align="center" valign="top"
                             style="padding: 40px 20px 20px 20px; border-radius: 4px 4px 0px 0px; color: #111111; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 48px; font-weight: 400; letter-spacing: 4px; line-height: 48px;">
-                            <h1 style="font-size: 48px; font-weight: 400; margin: 2;">Chào mừng!</h1> <img
-                                src=" https://img.icons8.com/clouds/100/000000/handshake.png" width="125" height="120"
-                                style="display: block; border: 0px;" />
+                            <h1 style="font-size: 48px; font-weight: 400; margin: 2;">Đặt lại mật khẩu!
+                            </h1> <img
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Password.svg/1024px-Password.svg.png"
+                                width="125" height="120" style="display: block; border: 0px;" />
                         </td>
                     </tr>
                 </table>
@@ -144,9 +145,11 @@
                     <tr>
                         <td bgcolor="#ffffff" align="left"
                             style="padding: 20px 30px 40px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;">Chúng tôi rất vui mừng khi bạn bắt đầu. Đầu tiên, bạn cần xác nhận tài
-                                khoản của mình. Chỉ cần nhấn nút bên
-                                dưới.</p>
+                            <p style="margin: 0">Xin chào {{ $user->fullname ?? '' }},</p>
+                            <p style="margin: 0">Bạn đã yêu cầu đặt lại mật khẩu cho tài khoản của mình.</p>
+                            <p style="margin: 0">Vui lòng sao chép mật khẩu bên duới để đăng nhập vào tài khoản của bạn:
+                            </p>
+
                         </td>
                     </tr>
                     <tr>
@@ -156,10 +159,11 @@
                                     <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 60px 30px;">
                                         <table border="0" cellspacing="0" cellpadding="0">
                                             <tr>
-                                                <td align="center" style="border-radius: 3px;" class="button-confirm"
-                                                    bgcolor="#FFA73B"><a href="#" target="_blank"
-                                                        style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFA73B; display: inline-block; border-radius: 30px">Xác
-                                                        nhận Tài khoản</a></td>
+                                                <td align="center" style="border-radius: 3px;" bgcolor="#FFA73B">
+                                                    <span id="copyLink"
+                                                        style="font-size: 20px; font-family: Helvetica, Arial, sans-serif; color: #ffffff; text-decoration: none; color: #ffffff; text-decoration: none; padding: 15px 25px; border-radius: 2px; border: 1px solid #FFA73B; display: inline-block; border-radius: 30px; font-weight: 600">{{
+                                                        $user->newPassword }}</span>
+                                                </td>
                                             </tr>
                                         </table>
                                     </td>
@@ -180,18 +184,13 @@
                             <p style="margin: 0;"><a href="#" target="_blank" style="color: #FFA73B;"></a></p>
                         </td>
                     </tr>
-                    <tr>
-                        <td bgcolor="#ffffff" align="left"
-                            style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;">Nếu bạn có bất kỳ câu hỏi nào, chỉ cần trả lời email này&mdash;chúng
-                                tôi luôn sẵn sàng
-                                rất vui được giúp đỡ.</p>
-                        </td>
-                    </tr>
+
                     <tr>
                         <td bgcolor="#ffffff" align="left"
                             style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;">Chúc mừng,<br>Nhóm BBB</p>
+                            <p style="margin: 0">Nếu bạn không yêu cầu đặt lại mật khẩu, vui lòng bỏ qua email này.</p>
+                            <p style="margin: 0">Trân trọng,</p>
+                            <p style="margin: 0">Đội ngũ hỗ trợ của Tên ứng dụng của bạn</p>
                         </td>
                     </tr>
                 </table>
@@ -228,6 +227,30 @@
             </td>
         </tr>
     </table>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const copyLink = document.getElementById('copyLink');
+        
+            copyLink.addEventListener('click', function(event) {
+                event.preventDefault();
+        
+                // Tạo một thẻ textarea tạm thời để sao chép nội dung
+                const textarea = document.createElement('textarea');
+                document.body.appendChild(textarea.value);
+        
+                // Chọn và sao chép nội dung
+                textarea.select();
+                document.execCommand('copy');
+        
+                // Xóa thẻ textarea tạm thời
+                document.body.removeChild(textarea);
+        
+                // Thông báo hoặc hiển thị một hộp thoại cho người dùng biết nếu cần
+                alert('Đã sao chép mật khẩu thành công!');
+            });
+        });
+    </script>
+
 </body>
 
 </html>

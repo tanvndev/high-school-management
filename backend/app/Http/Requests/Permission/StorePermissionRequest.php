@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Permission;
 
 use App\Enums\ResponseEnum;
 use Illuminate\Contracts\Validation\Validator;

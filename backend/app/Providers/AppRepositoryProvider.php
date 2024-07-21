@@ -18,7 +18,7 @@ class AppRepositoryProvider extends ServiceProvider
         // UserCatalogue
         'App\Repositories\Interfaces\User\UserCatalogueRepositoryInterface' => 'App\Repositories\User\UserCatalogueRepository',
         // Permission
-        'App\Repositories\Interfaces\User\PermissionRepositoryInterface' => 'App\Repositories\User\PermissionRepository',
+        'App\Repositories\Interfaces\Permission\PermissionRepositoryInterface' => 'App\Repositories\Permission\PermissionRepository',
         // Province
         'App\Repositories\Interfaces\Location\ProvinceRepositoryInterface' => 'App\Repositories\Location\ProvinceRepository',
         // District

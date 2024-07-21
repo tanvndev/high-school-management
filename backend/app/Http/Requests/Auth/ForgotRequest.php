@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class AuthRequest extends FormRequest
+class ForgotRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,7 @@ class AuthRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => 'required|email|exists:users,email',
         ];
     }
 
@@ -34,7 +33,6 @@ class AuthRequest extends FormRequest
     {
         return [
             'email' => 'Email',
-            'password' => 'Mật khẩu',
         ];
     }
 
@@ -46,9 +44,7 @@ class AuthRequest extends FormRequest
     public function failedValidation(Validator $validator)
     {
         throw new HttpResponseException(response()->json([
-            'status' => ResponseEnum::BAD_REQUEST,
             'messages' => $validator->errors(),
-            'data' => []
-        ], 400));
+        ], ResponseEnum::UNPROCESSABLE_ENTITY));
     }
 }

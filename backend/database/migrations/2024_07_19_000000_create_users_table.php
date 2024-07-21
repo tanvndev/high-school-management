@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->foreignId('user_catalogue_id')->constrained('user_catalogues')
                 ->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('google_id', 100)->nullable();
+            $table->string('google_id', 100)->nullable()->unique();
             $table->string('password');
             $table->string('phone', 20)->nullable();
             $table->string('province_id', 10)->nullable();

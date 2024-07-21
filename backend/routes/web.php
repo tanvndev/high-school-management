@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Auth\GoogleLoginController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use League\Glide\Server;
@@ -19,8 +20,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/emails', function () {
-    return view('emails.email-verify');
+    return view('emails.forgot-email');
 });
+Route::get('/notification/{boolean}/{messages}', function ($boolean, $messages) {
+    return view('auth.notification', compact(
+        'boolean',
+        'messages'
+    ));
+})->name('notifications');
+
 
 Route::get('images/{path}', function (Server $server, Request $request, $path) {
     $server->outputImage($path, $request->all());

@@ -1,11 +1,11 @@
 <?php
 // Trong Laravel, Service Pattern thường được sử dụng để tạo các lớp service, giúp tách biệt logic của ứng dụng khỏi controller.
-namespace App\Services\User;
+namespace App\Services\Permission;
 
 
-use App\Repositories\Interfaces\User\PermissionRepositoryInterface;
+use App\Repositories\Interfaces\Permission\PermissionRepositoryInterface;
 use App\Services\BaseService;
-use App\Services\Interfaces\User\PermissionServiceInterface;
+use App\Services\Interfaces\Permission\PermissionServiceInterface;
 use Illuminate\Support\Facades\DB;
 
 class PermissionService extends BaseService implements PermissionServiceInterface
@@ -68,12 +68,6 @@ class PermissionService extends BaseService implements PermissionServiceInterfac
                     $date = now()->toDateTimeString();
                     if (strpos($CRUD, 'C') !== false) {
                         $dataToInsert[] = [
-                            'name' => "Trang tạo mới {$name}",
-                            'canonical' => "{$canonicalName}.create",
-                            'created_at' => $date,
-                            'updated_at' => $date,
-                        ];
-                        $dataToInsert[] = [
                             'name' => "Tạo mới {$name}",
                             'canonical' => "{$canonicalName}.store",
                             'created_at' => $date,
@@ -95,12 +89,6 @@ class PermissionService extends BaseService implements PermissionServiceInterfac
                         ];
                     }
                     if (strpos($CRUD, 'U') !== false) {
-                        $dataToInsert[] = [
-                            'name' => "Trang chỉnh sửa {$name}",
-                            'canonical' => "{$canonicalName}.edit",
-                            'created_at' => $date,
-                            'updated_at' => $date,
-                        ];
                         $dataToInsert[] = [
                             'name' => "Chỉnh sửa {$name}",
                             'canonical' => "{$canonicalName}.update",

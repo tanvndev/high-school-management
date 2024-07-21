@@ -23,7 +23,7 @@
 
                 <RouterLink
                   :to="{ name: 'login' }"
-                  class="font-medium text-indigo-600 hover:text-indigo-500"
+                  class="font-medium text-blue-600 hover:text-blue-500"
                 >
                   Đăng nhập
                 </RouterLink>
@@ -41,34 +41,16 @@
             <div>
               <InputComponent label="Mật khẩu" name="password" type="password" />
             </div>
-            <button
-              type="submit"
-              class="mt-4 w-full rounded-lg bg-primary-600 px-4 py-2 font-medium text-white duration-150 hover:bg-primary-500 active:bg-primary-600"
+            <a-button
+              :loading="loading"
+              type="primary"
+              size="large"
+              html-type="submit"
+              class="mt-4 w-full"
             >
-              Đăng nhập
-            </button>
+              Đăng ký ngay
+            </a-button>
           </form>
-          <div class="relative">
-            <span class="block h-px w-full bg-gray-300"></span>
-            <p class="absolute inset-x-0 -top-2 mx-auto inline-block w-fit bg-white px-2 text-sm">
-              Hoặc đăng nhập với
-            </p>
-          </div>
-          <div class="space-y-4 text-sm font-medium">
-            <!-- Google Button -->
-            <button
-              class="flex w-full items-center justify-center gap-x-3 rounded-lg border py-2.5 duration-150 hover:bg-gray-50 active:bg-gray-100"
-            >
-              <!-- SVG for Google -->
-              <img
-                src="https://raw.githubusercontent.com/sidiDev/remote-assets/7cd06bf1d8859c578c2efbfda2c68bd6bedc66d8/google-icon.svg"
-                alt="Google"
-                class="h-5 w-5"
-              />
-              <!-- Comment: Google Icon SVG here -->
-              Tiếp tục với Google
-            </button>
-          </div>
         </div>
       </div>
     </a-col>
@@ -81,11 +63,13 @@ import * as yup from 'yup';
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
 import router from '@/router';
-import { useStore } from 'vuex';
 import { formatMessages } from '@/utils/format';
+import { AuthService } from '@/services';
+import { useAntToast } from '@/utils/antToast';
 
-const store = useStore();
+const loading = ref(false);
 const errors = ref({});
+const { showMessage } = useAntToast();
 const { handleSubmit } = useForm({
   validationSchema: yup.object({
     fullname: yup.string().required('Họ và tên không được để trống.'),
@@ -101,14 +85,15 @@ const { handleSubmit } = useForm({
 });
 
 const onSubmit = handleSubmit(async (values) => {
-  await store.dispatch('authStore/login', values);
-  const authState = store.state.authStore;
-  if (!authState.status.loggedIn) {
-    return (errors.value = formatMessages(authState.messages));
-  }
-
-  store.dispatch('antStore/showMessage', { type: 'success', message: 'Đăng nhập thành công.' });
   errors.value = {};
-  router.push({ name: 'dashboard' });
+  loading.value = true;
+  const response = await AuthService.register(values);
+  if (!response.success) {
+    loading.value = false;
+    return (errors.value = formatMessages(response.messages));
+  }
+  loading.value = false;
+  showMessage('success', response.messages);
+  router.push({ name: 'login' });
 });
 </script>

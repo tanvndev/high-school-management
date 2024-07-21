@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Auth;
 
 use App\Enums\ResponseEnum;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class UpdatePermissionRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +25,16 @@ class UpdatePermissionRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'canonical' => 'required|string|unique:permissions,canonical,' . $this->permission,
+            'email' => 'required|email',
+            'password' => 'required',
         ];
     }
 
     public function attributes()
     {
         return [
-            'name' => 'Tên quyền',
-            'canonical' => 'Canonical',
+            'email' => 'Email',
+            'password' => 'Mật khẩu',
         ];
     }
 

@@ -1,4 +1,3 @@
-// User catalogue index
 <template>
   <MasterLayout>
     <template #template>
@@ -70,7 +69,7 @@ import { useCRUD, usePagination } from '@/composables';
 
 // Data static
 const pageTitle = 'Danh sách quyền người dùng';
-const modelName = 'UserCatalogue';
+const modelName = 'Permission';
 const routeCreate = 'permission.store';
 const routeUpdate = 'permission.update';
 const endpoint = 'permissions';

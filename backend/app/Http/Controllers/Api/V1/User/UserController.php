@@ -39,6 +39,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        $this->authorize('modules', 'users.store');
         $response = $this->userService->create();
         $statusCode = $response['status'] == 'success' ? ResponseEnum::CREATED : ResponseEnum::INTERNAL_SERVER_ERROR;
         return response()->json($response, $statusCode);
@@ -49,6 +50,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
+        $this->authorize('modules', 'users.show');
         $user = new UserResource($this->userRepository->findById($id));
         return response()->json([
             'status' => 'success',
@@ -63,6 +65,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, string $id)
     {
+        $this->authorize('modules', 'users.update');
         $response = $this->userService->update($id);
         $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;
         return response()->json($response, $statusCode);
@@ -73,6 +76,7 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->authorize('modules', 'users.destroy');
         $response = $this->userService->destroy($id);
         $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;
         return response()->json($response, $statusCode);

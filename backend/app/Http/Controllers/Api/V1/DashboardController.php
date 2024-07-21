@@ -32,8 +32,10 @@ class DashboardController extends Controller
 
     public function deleteMultiple(Request $request)
     {
+
         // Lấy ra service tương ứng
         $serviceInstance = getServiceInstance($request->modelName);
+        // return response()->json($serviceInstance);
         // Xoa nhieu
         $response = $serviceInstance->deleteMultiple();
         $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;

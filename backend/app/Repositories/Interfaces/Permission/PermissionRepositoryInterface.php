@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Interfaces\User;
+namespace App\Repositories\Interfaces\Permission;
 
 use App\Repositories\Interfaces\BaseRepositoryInterface;
 

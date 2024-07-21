@@ -22,7 +22,7 @@
                 Bạn chưa có tài khoản?
                 <RouterLink
                   :to="{ name: 'register' }"
-                  class="font-medium text-indigo-600 hover:text-indigo-500"
+                  class="font-medium text-blue-600 hover:text-blue-500"
                 >
                   Đăng ký
                 </RouterLink>
@@ -44,29 +44,9 @@
               Đăng nhập
             </button>
           </form>
-          <div class="relative">
-            <span class="block h-px w-full bg-gray-300"></span>
-            <p class="absolute inset-x-0 -top-2 mx-auto inline-block w-fit bg-white px-2 text-sm">
-              Hoặc đăng nhập với
-            </p>
-          </div>
-          <div class="space-y-4 text-sm font-medium">
-            <!-- Google Button -->
-            <button
-              class="flex w-full items-center justify-center gap-x-3 rounded-lg border py-2.5 duration-150 hover:bg-gray-50 active:bg-gray-100"
-            >
-              <!-- SVG for Google -->
-              <img
-                src="https://raw.githubusercontent.com/sidiDev/remote-assets/7cd06bf1d8859c578c2efbfda2c68bd6bedc66d8/google-icon.svg"
-                alt="Google"
-                class="h-5 w-5"
-              />
-              <!-- Comment: Google Icon SVG here -->
-              Tiếp tục với Google
-            </button>
-          </div>
+
           <div class="text-center">
-            <RouterLink class="text-indigo-600 hover:text-indigo-500" :to="{ name: 'forgot' }"
+            <RouterLink class="text-blue-600 hover:text-blue-500" :to="{ name: 'forgot' }"
               >Quên mật khẩu?</RouterLink
             >
           </div>
@@ -101,6 +81,7 @@ const { handleSubmit } = useForm({
 });
 
 const onSubmit = handleSubmit(async (values) => {
+  errors.value = {};
   await store.dispatch('authStore/login', values);
   const authState = store.state.authStore;
   if (!authState.status.loggedIn) {
@@ -108,7 +89,6 @@ const onSubmit = handleSubmit(async (values) => {
   }
 
   store.dispatch('antStore/showMessage', { type: 'success', message: 'Đăng nhập thành công.' });
-  errors.value = {};
   router.push({ name: 'dashboard' });
 });
 </script>

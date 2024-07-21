@@ -28,6 +28,7 @@ class UserCatalogueController extends Controller
      */
     public function index()
     {
+        $this->authorize('modules', 'users.catalogues.index');
         $response = $this->userCatalogueService->paginate();
         $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;
         return response()->json($response, $statusCode);
@@ -38,6 +39,7 @@ class UserCatalogueController extends Controller
      */
     public function store(StoreUserCatalogueRequest $request)
     {
+        $this->authorize('modules', 'users.catalogues.store');
         $response = $this->userCatalogueService->create();
         $statusCode = $response['status'] == 'success' ? ResponseEnum::CREATED : ResponseEnum::INTERNAL_SERVER_ERROR;
         return response()->json($response, $statusCode);
@@ -48,6 +50,7 @@ class UserCatalogueController extends Controller
      */
     public function show(string $id)
     {
+        $this->authorize('modules', 'users.catalogues.show');
         $userCatalogue = new UserCatalogueResource($this->userCatalogueRepository->findById($id));
         return response()->json([
             'status' => 'success',
@@ -62,6 +65,7 @@ class UserCatalogueController extends Controller
      */
     public function update(UpdateUserCatalogueRequest $request, string $id)
     {
+        $this->authorize('modules', 'users.catalogues.update');
         $response = $this->userCatalogueService->update($id);
         $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;
         return response()->json($response, $statusCode);
@@ -73,6 +77,7 @@ class UserCatalogueController extends Controller
      */
     public function destroy(string $id)
     {
+        $this->authorize('modules', 'users.catalogues.destroy');
         $response = $this->userCatalogueService->destroy($id);
         $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;
         return response()->json($response, $statusCode);
@@ -80,6 +85,7 @@ class UserCatalogueController extends Controller
 
     public function updatePermissions(string $id)
     {
+        $this->authorize('modules', 'users.catalogues.updatePermissions');
         $response = $this->userCatalogueService->updatePermissions();
         $statusCode = $response['status'] == 'success' ? ResponseEnum::OK : ResponseEnum::INTERNAL_SERVER_ERROR;
         return response()->json($response, $statusCode);

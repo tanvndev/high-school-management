@@ -75,6 +75,37 @@ class AuthService {
       };
     }
   }
+
+  async register($payload) {
+    try {
+      const response = await axios.post('/auth/register', $payload);
+
+      return {
+        success: true,
+        messages: response.messages
+      };
+    } catch (error) {
+      return {
+        success: false,
+        messages: error.response.data.messages
+      };
+    }
+  }
+  async forgot($payload) {
+    try {
+      const response = await axios.post('/auth/forgot-password', $payload);
+
+      return {
+        success: true,
+        messages: response.messages
+      };
+    } catch (error) {
+      return {
+        success: false,
+        messages: error.response.data.messages
+      };
+    }
+  }
 }
 
 export default new AuthService();

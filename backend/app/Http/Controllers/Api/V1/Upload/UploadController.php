@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\Upload;
 
 use App\Enums\ResponseEnum;
 use App\Http\Controllers\Controller;

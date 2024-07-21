@@ -33,7 +33,7 @@ return [
         'dimensions'           => ':attribute có kích thước hình ảnh không hợp lệ.',
         'distinct'             => 'Trường :attribute có giá trị trùng lặp.',
         'email'                => ':attribute phải là địa chỉ email hợp lệ.',
-        'exists'               => ':attribute đã chọn không hợp lệ.',
+        'exists'               => ':attribute không tồn tại.',
         'file'                 => ':attribute phải là một tệp.',
         'filled'               => 'Trường :attribute phải có giá trị.',
         'image'                => ':attribute phải là một hình ảnh.',

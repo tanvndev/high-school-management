@@ -19,10 +19,12 @@ class AppServiceProvider extends ServiceProvider
         'App\Services\Interfaces\BaseServiceInterface' => 'App\Services\BaseService',
         // User
         'App\Services\Interfaces\User\UserServiceInterface' => 'App\Services\User\UserService',
+        // Auth
+        'App\Services\Interfaces\Auth\AuthServiceInterface' => 'App\Services\Auth\AuthService',
         // UserCatalogue
         'App\Services\Interfaces\User\UserCatalogueServiceInterface' => 'App\Services\User\UserCatalogueService',
         // Permission
-        'App\Services\Interfaces\User\PermissionServiceInterface' => 'App\Services\User\PermissionService',
+        'App\Services\Interfaces\Permission\PermissionServiceInterface' => 'App\Services\Permission\PermissionService',
         // Upload
         'App\Services\Interfaces\Upload\UploadServiceInterface' => 'App\Services\Upload\UploadService',
 

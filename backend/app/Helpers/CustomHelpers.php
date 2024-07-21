@@ -12,6 +12,24 @@ if (!function_exists('getServiceInstance')) {
         return null;
     }
 }
+if (!function_exists('generateStrongPassword')) {
+    function generateStrongPassword($length = 12)
+    {
+        $uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $lowercase = 'abcdefghijklmnopqrstuvwxyz';
+        $numbers = '0123456789';
+        $specialChars = '!@#$%^&*()_+-=[]{}|';
+
+        $allChars = $uppercase . $lowercase . $numbers . $specialChars;
+        $password = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $password .= $allChars[random_int(0, strlen($allChars) - 1)];
+        }
+
+        return $password;
+    }
+}
 if (!function_exists('getRepositoryInstance')) {
     function getRepositoryInstance($modelName)
     {
