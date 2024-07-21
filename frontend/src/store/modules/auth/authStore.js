@@ -16,7 +16,8 @@ const getters = {
   isLoggedIn: (state) => state.status.loggedIn,
   getUser: (state) => state.user,
   getToken: (state) => state.accessToken,
-  getMessages: (state) => state.messages
+  getMessages: (state) => state.messages,
+  getRole: (state) => state.user?.user_catalogue
 };
 // actions
 const actions = {
