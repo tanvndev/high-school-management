@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
@@ -43,8 +44,16 @@ class Upload
                 $img = Image::make($image)
                     ->encode('webp', 90); // Encode to .webp with 80% quality
 
+
+                $temporaryDirectory = storage_path('app/temp/');
+
+                if (!File::exists($temporaryDirectory)) {
+                    // Nếu chưa tồn tại, tạo thư mục
+                    File::makeDirectory($temporaryDirectory, $mode = 0755, true, true);
+                }
+
                 // Save the optimized image temporarily
-                $temporaryPath = storage_path('app/temp/' . $filename);
+                $temporaryPath =  $temporaryDirectory . $filename;
                 $img->save($temporaryPath);
 
                 // Optimize the image further using spatie/image-optimizer

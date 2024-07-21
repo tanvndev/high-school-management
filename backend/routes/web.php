@@ -2,8 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use League\Glide\Responses\LaravelResponseFactory;
-use League\Glide\ServerFactory;
 use League\Glide\Server;
 
 /*
@@ -19,6 +17,9 @@ use League\Glide\Server;
 
 Route::get('/', function () {
     return view('welcome');
+});
+Route::get('/emails', function () {
+    return view('emails.email-verify');
 });
 
 Route::get('images/{path}', function (Server $server, Request $request, $path) {
