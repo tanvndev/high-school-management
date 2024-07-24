@@ -55,7 +55,6 @@ class AuthService extends BaseService implements AuthServiceInterface
             ]);
 
 
-
             // Send email verification notification
             event(new AuthRegisteredEvent($user));
             DB::commit();
@@ -66,7 +65,6 @@ class AuthService extends BaseService implements AuthServiceInterface
                 'data' => null
             ];
         } catch (\Exception $exception) {
-            dd($exception);
             DB::rollBack();
             return [
                 'status' => 'error',
@@ -100,7 +98,6 @@ class AuthService extends BaseService implements AuthServiceInterface
                 'data' => null
             ];
         } catch (\Exception $exception) {
-            dd($exception);
             DB::rollBack();
             return [
                 'status' => 'error',

@@ -57,13 +57,16 @@ Route::prefix('v1')->group(function () {
 
         // USER ROUTE
         // * Neu dung resource de tao .../catalogues thi phai gan them name neu khong se bi loi
-        Route::resource('users/catalogues', UserCatalogueController::class)->names([
-            'index' => 'users.catalogues.index',
-            'store' => 'users.catalogues.store',
-            'show' => 'users.catalogues.show',
-            'update' => 'users.catalogues.update',
-            'destroy' => 'users.catalogues.destroy',
-        ]);
+        // Route::resource('users/catalogues', UserCatalogueController::class)->names([
+        //     'index' => 'users.catalogues.index',
+        //     'store' => 'users.catalogues.store',
+        //     'show' => 'users.catalogues.show',
+        //     'update' => 'users.catalogues.update',
+        //     'destroy' => 'users.catalogues.destroy',
+        // ]);
+        Route::prefix('/')->name('users.')->group(function () {
+            Route::apiResource('users/catalogues', UserCatalogueController::class);
+        });
         Route::put('users/catalogues/permissions/{id}', [UserCatalogueController::class, 'updatePermissions'])->name('users.catalogues.permissions');
         Route::apiResource('users', UserController::class);
         Route::apiResource('permissions', PermissionController::class);

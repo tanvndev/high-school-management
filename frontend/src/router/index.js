@@ -22,7 +22,7 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: DashboardView,
-    beforeEnter: [isLoggedIn, isAdmin]
+    beforeEnter: [isLoggedIn]
   },
   {
     path: '/fileManager',
