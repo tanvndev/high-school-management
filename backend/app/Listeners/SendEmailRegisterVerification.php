@@ -6,7 +6,7 @@ use App\Events\AuthRegisteredEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class SendEmailRegisterVerification
+class SendEmailRegisterVerification implements ShouldQueue
 {
     /**
      * Create the event listener.
